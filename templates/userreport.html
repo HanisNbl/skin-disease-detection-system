@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Report</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/generate_report.css') }}">
+</head>
+<body>
+    <div class="report-container">
+        <h1>Generated Report</h1>
+        <div class="image-container">
+            <img src="data:image/jpeg;base64,{{ image.base64_data }}" alt="Skin Image">
+        </div>
+        <div class="report-details">
+            <h2>Predicted Condition:</h2>
+            <p>{{ image.predictions }}</p>
+
+            <h2>Upload Date:</h2>
+            <p>{{ image.upload_date }}</p>
+
+            <h2>Additional Information:</h2>
+            <!-- Add any additional information you want to display here -->
+        </div>
+    </div>
+</body>
+</html>

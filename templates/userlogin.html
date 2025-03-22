@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/userlogin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="logo">
+                <img class="imglogo" src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+            </div>
+            <div class="text">
+                <p>Empowering Prevention,</p>
+                <p>Early Detection</p>
+            </div>
+        </div>
+        <div class="right">
+            <div class="login">
+                <p>Welcome to Skin Good</p>
+                <form action="/login" method="post">
+                    {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                    {% endif %}
+                    <div class="Email">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" name="email" placeholder="Please enter your email" required>
+                    </div>
+                    <div class="Password">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Please enter your password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <a href="{{ url_for('register') }}">Click here to register</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

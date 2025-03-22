@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/auserlist.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Manage user</title>
+
+    <script>
+        function confirmDelete(userid){
+            if(confirm("Are you sure you want to delete this user?")){
+                window.location.href = "/deleteuser/" + userid;
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <div class="menu">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}"></img>
+        <a href="/adash"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+        <a href="/userlist"><i class="bi bi-clock-history"></i>User list</a>
+        <a href="/adminprofile"><i class="bi bi-person-fill"></i>Profile</a>
+        <a href="/logout" style="margin-top: 270px;"><i class="bi bi-box-arrow-right"></i>Logout</a>
+    </div>
+
+    <div class="header">
+        <h1>User list</h1>
+        <div class="header2">
+            <tr>
+                <td><a href="#"><i class="bi bi-person-circle"></i>{{ session.name }}</a></td>
+            </tr>
+        </div>
+    </div>
+
+    <div class="content">
+        <form method="POST" class="search-form">
+            <input type="text" name="search_query" placeholder="Search by User ID or Name">
+            <button type="submit">Search</button>
+        </form>
+    
+    <div class="userlist">
+        <table>
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Birth Date</th>
+                <th>No. Phone</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            {% if users %}
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.userid }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.gender }}</td>
+                    <td>{{ user.dob }}</td>
+                    <td>{{ user.nophone }}</td>
+                    <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                    <td>
+                        <a href="#" onclick="confirmDelete('{{user.userid}}')" class="delete button-link">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="7" class="no-users">No users found.</td>
+            </tr>
+        {% endif %}
+
+        </table>
+    </div>
+</body>
+</html>

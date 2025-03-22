@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/userprofile.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Dermatology Profile</title>
+</head>
+<body>
+    <div class="menu">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}"></img>
+        <a href="/ddash"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+        <a href="/dermcontact"><i class="bi bi-phone-fill"></i>Chat with User</a>
+        <a href="/dprofile"><i class="bi bi-person-fill"></i>Profile</a>
+        <a href="/logout" style="margin-top: 270px;"><i class="bi bi-box-arrow-right"></i>Logout</a>
+    </div>
+
+    <div class="header">
+        <h1>Dermatology Profile</h1>
+        <div class="header2">
+            <tr>
+                <td><a href="#"><i class="bi bi-person-circle"></i>{{session.name}}</a></td> <!-- Assuming ID is the first column -->
+            </tr>
+        </div>
+    </div>
+
+
+    <div class="profile">
+
+        <img src="static/img/profile.jpg" alt="Profile Image" class="profile-img">
+
+        <div class="profile-content">
+            <strong>Name:</strong> 
+            <div>
+                {{ user.name }}
+            </div>
+            <strong>Gender:</strong> 
+            <div>
+                {{ user.gender }}
+            </div>
+            <strong>Date of Birth:</strong> 
+            <div>
+                {{ user.dob }}
+            </div>
+            <strong>No. Phone:</strong> 
+            <div>
+                {{ user.nophone }}
+            </div>
+            <strong>Email:</strong> 
+            <div>
+                {{ user.email }}
+            </div>
+
+            <a href="/dedit_profile"><button class="edit-button">Edit</button></a>
+        </div>
+    </div>
+    
+</body>
+</html>

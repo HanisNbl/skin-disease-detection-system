@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/register.css') }}">
+    <title>Sign Up Form</title>
+    <script>
+        function validatePhoneNumber(phone) {
+            const phonePattern = /^[0-9]{10,11}$/;
+            return phonePattern.test(phone);
+        }
+
+        function validateEmail(email) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const domainPattern = /@gmail\.com$/;
+            return emailPattern.test(email) && domainPattern.test(email);
+        }
+
+        function showSuccessMessage(event) {
+            const phoneInput = document.getElementById('nophone');
+            const phoneError = document.getElementById('nophoneError');
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            
+            let valid = true;
+
+            if (!validatePhoneNumber(phoneInput.value)) {
+                phoneError.textContent = 'Invalid phone number format! Must be exactly 10-11 digits.';
+                phoneError.style.color = 'red';
+                valid = false;
+            } else {
+                phoneError.textContent = '';
+            }
+
+            if (!validateEmail(emailInput.value)) {
+                emailError.textContent = 'Invalid email format!';
+                emailError.style.color = 'red';
+                valid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            if (!valid) {
+                event.preventDefault();
+            } else {
+                alert("Successfully registered");
+            }
+            
+            return valid;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>User Registration</h2>
+        <form action="{{ url_for('register') }}" method="post" onsubmit="return showSuccessMessage(event)">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select class="form-control" id="gender" placeholder="Choose gender" name="gender" required>
+                    <option value=""></option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" class="form-control" id="dob" name="dob" placeholder="Enter date of birth" required>
+            </div>
+            <div class="form-group">
+                <label for="nophone">No. Phone:</label>
+                <span id="nophoneError" class="error-message" style="color: red; font-size: small;"></span>
+                <input type="text" class="form-control" id="nophone" name="nophone" placeholder="Ex: 0102125887" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <span id="emailError" class="error-message" style="color: red; font-size: small;"></span>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+            </div>    
+            <button type="submit" class="btn btn-primary">Register</button>
+            <p class="bottom">Already have an account?  <a class="bottom" href="{{url_for('login')}}"> Login here</a></p>
+        </form>
+    </div>   
+</body>
+</html>

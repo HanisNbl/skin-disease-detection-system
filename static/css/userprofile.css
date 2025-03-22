@@ -1,0 +1,132 @@
+body {
+    font-style: normal;
+    margin-left: 200px; /* Add left margin to accommodate the side menu */
+    margin-right: 50px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header2 a:hover{
+    color: grey;
+}
+
+.header2 a{
+    margin-left: 30px;
+    text-decoration: none;
+    color: black;
+}
+
+.header i{
+    margin-right:10px;
+}
+
+.logo{
+    width:150px;
+}
+
+.menu {
+    height: 100%;
+    position: fixed;
+    background-color: #E0F3FA;
+    top: 0;
+    left: 0;
+    width: 150px; /* Set the width of the side menu */
+}
+
+.menu a{
+    display: block;
+    color: grey;
+    text-align: center;
+    font-size: 17px;
+    text-decoration: none;
+    padding: 8px 8px 8px 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.logout{
+    margin-top: 190px;
+}
+
+.menu i{
+    display: block;
+}
+
+.menu a:hover{
+    background-color: rgba(128, 128, 128, 0.5);
+    color: white;
+}
+
+.profile{
+    display: flex;
+    margin-left: 90px;
+    width: 900px;
+    justify-content: space-around;
+    padding: 50px;
+    border: 1px solid #ccc; 
+    border-radius: 15px;
+}
+
+.profile-content div {
+    background-color: lightgray;
+    margin-bottom: 20px; 
+    border: 1px solid gray; 
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile label{
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    margin-bottom: 20px; 
+    border: 1px solid #ccc; 
+    width: 320px;
+    padding: 12px;
+    border-radius: 5px; 
+    box-sizing: border-box;
+}
+
+.profile img{
+    border: 1px solid #ccc; 
+    margin-top: 60px;
+    height: 200px;
+    width:200px;
+    border-radius: 500px;
+}
+
+.edit-button{
+    align-items: center;
+    background-color: #32cd32 ;
+    border: 0px;
+    border-radius: 25px;
+    margin-top: 15px;
+    padding: 10px;
+    width: 100px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0cqh;
+    cursor: pointer;
+}
+
+.save-button{
+    align-items: center;
+    background-color: #32cd32 ;
+    border: 0px;
+    border-radius: 25px;
+    margin-top: 15px;
+    padding: 10px;
+    width: 150px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0cqh;
+    cursor: pointer;
+}

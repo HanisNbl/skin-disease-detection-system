@@ -1,0 +1,163 @@
+@charset "utf-8";
+
+body {
+    font-style: normal;
+    margin-left: 200px; /* Add left margin to accommodate the side menu */
+    margin-right: 50px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header2 a:hover{
+    color: grey;
+}
+
+.header2 a{
+    margin-left: 30px;
+    text-decoration: none;
+    color: black;
+}
+
+.header i{
+    margin-right:10px;
+}
+
+.logo{
+    width:150px;
+}
+
+.menu {
+    height: 100%;
+    position: fixed;
+    background-color: #E0F3FA;
+    top: 0;
+    left: 0;
+    width: 150px; /* Set the width of the side menu */
+}
+
+.menu a{
+    display: block;
+    color: grey;
+    text-align: center;
+    font-size: 17px;
+    text-decoration: none;
+    padding: 8px 8px 8px 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.logout{
+    margin-top: 190px;
+}
+
+.menu i{
+    display: block;
+}
+
+.menu a:hover{
+    background-color: rgba(128, 128, 128, 0.5);
+    color: white;
+}
+
+.imgcontent{
+    width:200px;
+    margin-left: 200px;
+}
+
+.option{
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    justify-content:space-around;
+}
+
+.option a{
+    display: block;
+    box-sizing:border-box;
+    padding:20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    text-decoration: none;
+    color: black;
+}
+
+.option i{
+    display: block;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.option a:hover{
+    background-color: rgba(128, 128, 128, 0.5);
+    color: white;
+}
+
+.dash{
+    margin-top: 15px;
+    display: flex;
+}
+
+.content {
+    display: flex;
+    margin-right: 30px;
+}
+
+.card {
+    background-color: #F5B7B1;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(250, 219, 216);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.totalderm {
+    background-color: #F9E79F;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(252, 243, 207);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.card i, .totalderm i {
+    font-size: 30px;
+    color: #333;
+    background-color: white;
+    border-radius: 50%;
+    padding: 20px;
+    margin-right: 20px;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3, .totalderm h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.card p, .totalderm p {
+    margin: 5px 0 0 0;
+    font-size: 18px;
+    color: #666;
+}
+
+.analysis {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    background-color: beige; /* Set the background color to beige */
+    padding: 15px; /* Add padding to create space inside the box */
+    border-radius: 10px; /* Optionally, add rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional box shadow for depth */
+}

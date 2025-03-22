@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/aindex.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Admin Dash</title>
+</head>
+<body>
+    <div class="menu">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}"></img>
+        <a href="/adash"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+        <a href="/userlist"><i class="bi bi-clock-history"></i>User list</a>
+        <a href="/adminprofile"><i class="bi bi-person-fill"></i>Profile</a>
+        <a href="/logout" style="margin-top: 270px;"><i class="bi bi-box-arrow-right"></i>Logout</a>
+    </div>
+
+    <div class="header">
+        <h1>Admin Dashboard</h1>
+        <div class="header2">
+            <tr>
+                <td><a href="#"><i class="bi bi-person-circle"></i>{{session.name}}</a></td> <!-- Assuming ID is the first column -->
+            </tr>
+        </div>
+    </div>
+    
+    <div class="dash">
+        <div class="content">
+            <div class="card">
+                <i class="fa fa-user"></i>
+                <div class="card-content">
+                    <h3>Total Users</h3>
+                    <p>{{ user_count }}</p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="content">
+            <div class="totalderm">
+                <i class="fa fa-user-md"></i>
+                <div class="card-content">
+                    <h3>Total Dermatologist</h3>
+                    <p>{{ derm_count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="analysis">
+        <!-- Pie chart canvas -->
+        <canvas id="piechart" width="450px" height="450px"></canvas>
+    
+        <!-- Histogram (bar) chart canvas -->
+        <canvas id="histogram" width="350px" height="450px"></canvas>
+    </div>
+    
+    <!-- Generate Report Button -->
+    <button id="generateReport" class="btn btn-primary">Generate Report</button>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const headers = {
+                headers: {'Content-Type': 'application/json'}
+            };
+    
+            // Fetch disease prediction data for both pie and histogram charts
+            fetch("/api/SkinDiseasePredictions", {
+                method: "GET",
+                headers: headers
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            }).then(data => {
+                const xPie = data['disease_labels'];
+                const yPie = data['disease_data'];
+                const xHist = xPie; // Use the same labels for histogram
+                const yHist = yPie; // Use the same data for histogram
+    
+                // Pie chart data
+                const pieChartData = {
+                    labels: xPie,
+                    datasets: [{
+                        label: 'Skin Disease Predictions',
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(150, 205, 86)',
+                            'rgb(210, 70, 110)',
+                            'rgb(54, 162, 200)',
+                            'rgb(220, 150, 86)',
+                            'rgb(150, 205, 86)'
+                        ],
+                        data: yPie
+                    }]
+                };
+    
+                // Histogram (bar) chart data
+                const histChartData = {
+                    labels: xHist,
+                    datasets: [{
+                        label: 'Skin Disease Predictions',
+                        backgroundColor: 'rgb(75, 192, 192)',
+                        borderColor: 'rgb(75, 192, 192)',
+                        borderWidth: 1,
+                        data: yHist
+                    }]
+                };
+    
+                // Pie chart configuration
+                const pieChartConfig = {
+                    type: 'pie',
+                    data: pieChartData,
+                    options: {
+                        responsive: false,
+                        maintainAspectRatio: true
+                    }
+                };
+    
+                // Histogram (bar) chart configuration
+                const histChartConfig = {
+                    type: 'bar',
+                    data: histChartData,
+                    options: {
+                        responsive: false,
+                        maintainAspectRatio: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                };
+    
+                // Render pie chart
+                const piechart = new Chart(
+                    document.getElementById('piechart'),
+                    pieChartConfig
+                );
+    
+                // Render histogram (bar) chart
+                const histogram = new Chart(
+                    document.getElementById('histogram'),
+                    histChartConfig
+                );
+            }).catch(error => {
+                console.error('Error fetching or parsing data:', error);
+                // Handle error gracefully, e.g., show a message to the user
+            });
+    
+            // Add event listener to the button to generate report
+            document.getElementById('generateReport').addEventListener('click', function () {
+                window.open('/generate_report', '_blank');
+            });
+        });
+    </script>    
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+        <div class="container">
+            <div class="login">
+                <h1>Dermatologist</h1>
+                <form action="/dlogin" method="post">
+                    {% if mesage is defined and mesage %}
+                    <div class="alert alert-warning">{{ mesage }}</div>
+                    {% endif %}
+                    <div class="Email">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" name="email" placeholder="Please enter your email" required>
+                    </div>
+                    <div class="Password">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Please enter your password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+</body>
+</html>

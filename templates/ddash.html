@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dindex.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+    <title>Dermatology Dash</title>
+</head>
+<body>
+    <div class="menu">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}"></img>
+        <a href="/ddash"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+        <a href="/dermcontact"><i class="bi bi-phone-fill"></i>Chat with User</a>
+        <a href="/dprofile"><i class="bi bi-person-fill"></i>Profile</a>
+        <a href="/logout" style="margin-top: 270px;"><i class="bi bi-box-arrow-right"></i>Logout</a>
+    </div>
+
+    <div class="header">
+        <h1>Dashboard</h1>
+        <div class="header2">
+            <tr>
+                <td><a href="#"><i class="bi bi-person-circle"></i>{{session.name}}</a></td>
+            </tr>
+        </div>
+    </div>
+
+    <div class="welcome"> 
+        <ul>
+            <tr>
+                Welcome, <td>{{session.name}}</td>
+            </tr>
+        </ul>
+    </div>
+    
+    <div class="option">
+        <a href="/dermcontact"><i class="bi bi-phone-fill"></i>Consultation</a>
+        <a href="/dskininfo"><i class="bi bi-info-circle-fill"></i>Skin Information</a>
+    </div>
+
+    <div class="notifications">
+        <h2>Messages Notifications</h2>
+        <ul id="messageNotifications">
+            <!-- Notifications will be dynamically added here -->
+        </ul>
+    </div>
+
+    <script>
+        const socket = io();
+
+        socket.on('connect', () => {
+            socket.emit('join', {username: "{{session.name}}", room: "derm-{{session.dermaid}}"});
+        });
+
+        socket.on('notification', (data) => {
+            const messageNotifications = document.getElementById('messageNotifications');
+            const listItem = document.createElement('li');
+            listItem.textContent = data.message;
+            listItem.dataset.sender = data.sender;
+            listItem.addEventListener('click', () => {
+                window.location.href = `/dermcontact?userid=${data.sender}`;
+                socket.emit('mark_as_read', {sender: data.sender});
+            });
+            messageNotifications.appendChild(listItem);
+        });
+
+        socket.on('remove_notification', (data) => {
+            const messageNotifications = document.getElementById('messageNotifications');
+            const listItems = messageNotifications.getElementsByTagName('li');
+            for (let item of listItems) {
+                if (item.dataset.sender == data.sender) {
+                    messageNotifications.removeChild(item);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

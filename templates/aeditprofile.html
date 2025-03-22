@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/userprofile.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Edit Profile</title>
+</head>
+<body>
+    <div class="menu">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}"></img>
+        <a href="/adash"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+        <a href="/userlist"><i class="bi bi-clock-history"></i>User list</a>
+        <a href="/adminprofile"><i class="bi bi-person-fill"></i>Profile</a>
+        <a href="/logout" style="margin-top: 270px;"><i class="bi bi-box-arrow-right"></i>Logout</a>
+    </div>
+
+    <div class="header">
+        <h1>Edit Profile</h1>
+        <div class="header2">
+            <a href="#"><i class="bi bi-person-circle"></i>{{ session.name }}</a>
+        </div>
+    </div>
+
+    <div class="profile">
+        <img src="{{ url_for('static', filename='img/profile.jpg') }}" alt="Profile Image" class="profile-img">
+        <form method="POST" action="/admin_update_profile">
+            <label for="name">Name:</label>
+            <div class="form-group">
+                <input type="text" id="name" name="name" value="{{ user.name }}">
+            </div>
+            <label for="gender">Gender:</label>
+            <div class="form-group">
+                <select id="gender" name="gender">
+                    <option value="Male" {% if user.gender == 'Male' %} selected {% endif %}>Male</option>
+                    <option value="Female" {% if user.gender == 'Female' %} selected {% endif %}>Female</option>
+                </select>
+            </div>       
+            <label for="dob">Date of Birth:</label>     
+            <div class="form-group">
+                <input type="date" id="dob" name="dob" value="{{ user.dob }}">
+            </div>
+            <label for="email">Email:</label>
+            <div class="form-group">
+                <input type="email" id="email" name="email" value="{{ user.email }}">
+            </div>  
+            <button type="submit" onclick="showSuccessMessage()" class="save-button">Save Changes</button>
+        </form>
+    </div>  
+
+    <script>
+        function showSuccessMessage() {
+            alert("Successfully updated!");
+            return true;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dapp.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Dermatology Dash</title>
+</head>
+<body>
+    <div class="menu">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}"></img>
+        <a href="/ddash"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+        <a href="/dappointment"><i class="bi bi-chat-dots-fill"></i>Manage Appointment</a>
+        <a href="/dprofile"><i class="bi bi-person-fill"></i>Profile</a>
+        <a href="/logout" style="margin-top: 250px;"><i class="bi bi-box-arrow-right"></i>Logout</a>
+    </div>
+
+    <div class="header">
+        <h1>Manage Appointments</h1>
+        <div class="header2">
+            <tr>
+                <td><a href="#"><i class="bi bi-person-circle"></i>{{ session.name }}</a></td>
+            </tr>
+        </div>
+    </div>
+    
+    <div class="appointment">
+        <table>
+            <tr>
+                <th>User Name</th>
+                <th>User Email</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Platform</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.user.name }}</td>
+                <td><a href="mailto:{{ appointment.user.email }}">{{ appointment.user.email }}</a></td>
+                <td>{{ appointment.date }}</td>
+                <td>{{ appointment.time }}</td>
+                <td>{{ appointment.platform }}</td>
+                <td>{{ appointment.message }}</td>
+                <td>{{ appointment.status }}</td>
+                <td>
+                    {% if appointment.status == 'Pending' %}
+                    <form action="{{ url_for('approve_appointment', appointment_id=appointment.appointment_id) }}" method="post" style="display:inline;">
+                        <button class="approve" type="submit">Approve</button>
+                    </form>
+                    <form action="{{ url_for('reject_appointment', appointment_id=appointment.appointment_id) }}" method="post" style="display:inline;">
+                        <button class="reject" type="submit">Reject</button>
+                    </form>
+                    {% elif appointment.status == 'Approved' %}
+                    Approved on {{ appointment.approved_at }}
+                    {% elif appointment.status == 'Rejected' %}
+                    Rejected on {{ appointment.rejected_at }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

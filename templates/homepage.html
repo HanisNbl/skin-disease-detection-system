@@ -1,0 +1,287 @@
+
+   <!--DOCTYPE html-->
+   <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--==title========================-->
+        <title>Skin Disease Detection System</title>
+        <!--==Fav-icon=====================-->
+        <link rel="shortcut icon" href="images/fav-icon.png">
+        <!--==CSS==========================-->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+        <!--==Font-Awesome-for-icons=====-->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/homepage.css') }}">
+        <!-- Link Swiper's CSS -->
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+        />
+    
+    </head>
+    <body>
+        
+        <!--==Hero-Section========================-->
+        <section id="hero">
+    
+            <!--==navigation====================-->
+            <nav class="navigation">
+                <!--**menu-btn*****-->
+                <input type="checkbox" class="menu-btn" id="menu-btn">
+                <label for="menu-btn" class="menu-icon">
+                    <span class="nav-icon"></span>
+                </label>
+                <!--**logo*********-->
+                <img alt="" class="logo" src="{{ url_for('static', filename='img/logo.png') }}">
+                <!--**menu*********-->
+                <ul class="menu">
+                    <li><a href="#our_story">About the System</a></li>
+                    <li><a href="#our-services">Our Services</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Login</a>
+                        <div class="dropdown-content">
+                            <a href="/login">User</a>
+                            <a href="/dlogin">Dermatology</a>
+                            <a href="/alogin">Admin</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav><!--nav-end-->
+    
+    
+            <!--==Content============================-->
+            <div class="hero-content">
+                <!--**text****************-->
+                <div class="hero-text">
+                    <h1>Empowering Prevention, Early Detection</h1>
+                    <p>An online skin diseases detection system for you.</p>
+                    <!--btns-->
+                    <div class="hero-text-btns">
+                        <a href="#our_story"><i class="fa-solid fa-magnifying-glass"></i>Let's started</a>
+                    </div>
+                </div>
+                <!--**img*****************-->
+                <div class="hero-img">
+                    <img alt="" src="{{ url_for('static', filename='img/home.jpg') }}">
+                </div>
+            </div>
+    
+            
+        </section><!--hero-end-->
+    
+        <!--==Story=============================-->
+        <section id="our_story">
+    
+            <!--**img**-->
+            <div class="our-story-img">
+                <img alt="" src="{{ url_for('static', filename='img/logo.png') }}">
+            </div>
+            <!--**text**-->
+            <div class="our-stroy-text">
+                <h2>Short Story About Our System.</h2>
+                <p>The skin disease detection system uses deep 
+                    learning algorithms, specifically convolutional neural networks (CNNs), 
+                    to analyze images of skin diseases and provide potential diagnoses. 
+                    It is designed for individuals seeking self-assessment of skin conditions and 
+                    offers valuable support for healthcare professionals. 
+                    Built primarily in Python, the system aims for high accuracy levels and a more comprehensive database of 
+                    skin diseases and conditions in the future.</p>
+                <!--numbers-of-happy-patients-->
+                <div class="story-numbers-container">
+                    <!--box-->
+                    <div class="story-numbers-box s-n-box1">
+                        <strong>{{user}}+</strong>
+                        <span>Happy Patients</span>
+                    </div>
+                    <!--box-->
+                    <div class="story-numbers-box s-n-box2">
+                        <strong>{{derm}}+</strong>
+                        <span>Expert Doctor</span>
+                    </div>
+                </div>
+            </div>
+            
+        </section><!--story-end-->
+    
+        
+    
+        <!--==Our-Services======================-->
+        <section id="our-services">
+    
+            <!--**heading********************-->
+            <div class="services-heading">
+                <!--text-->
+                <div class="services-heading-text">
+                    <strong>Our Services</strong>
+                    <h2>Good Quality Services For You</h2>
+                </div>
+            </div>
+    
+            <!--**container*******************-->
+            <div class="services-box-container">
+    
+                 <!-- Swiper -->
+                <div class="swiper mySwiperservices">
+                    <div class="swiper-wrapper">
+                        <!--**1*******-->
+                        <div class="swiper-slide">
+                        <!--**box1**-->
+                        <div class="service-box s-box1">
+                            <!--icon-->
+                            <i class="fa fa-plus-square"></i>
+                            <!--title-->
+                            <strong>Skin Detection</strong>
+                            <!--details-->
+                            <p>Our system provide a skin disease detection system for seven types of skin disease.</p>
+                        </div>
+                        </div><!--slide-end-->
+                        <!--**1*******-->
+                        <div class="swiper-slide">
+                        <!--**box1**-->
+                        <div class="service-box s-box2">
+                            <!--icon-->
+                            <i class="fa fa-comments"></i>
+                            <!--title-->
+                            <strong>Consult with Dermatology</strong>
+                            <!--details-->
+                            <p>User can communicate in real-time with dermatologists to ask about skin diseases.</p>
+                        </div>
+                        </div><!--slide-end-->
+                        <!--**1*******-->
+                        <div class="swiper-slide">
+                            <!--**box1**-->
+                            <div class="service-box s-box3">
+                                <!--icon-->
+                                <i class="fa fa-info-circle"></i>
+                                <!--title-->
+                                <strong>Skin Information</strong>
+                                <!--details-->
+                                <p>User can read informations about skin diseases.</p>
+                            </div>
+                            </div><!--slide-end-->
+                </div><!--swiper-end-->
+            </div>
+        </section><!--services-end-->
+    
+    
+        <footer>
+            <div id="contact" class="footer-container">
+                <!--**comoany-box**-->
+                <div class="footer-company-box">
+                    <!--logo-->
+                    <a href="#" class="logo">Skin Good</a>
+                    <!--details-->
+                    <p>We care about your skin.</p>
+                    <!--social-box-->
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                    </div>
+                </div>
+                <!--**link-box***-->
+                <div class="footer-link-box">
+                    <strong>Main Link's</strong>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#our_story">About the System</a></li>
+                        <li><a href="#our-services">Our Services</a></li>
+                    </ul>
+                </div>
+                <!--**link-box***-->
+                <div class="footer-link-box">
+                    <strong>Contact Us</strong>
+                    <p>For more inquiries, you contact us as below</p>
+                    <ul>
+                        <div class="w-right-contact-box">
+                            <i class="fa fa-phone"></i>
+                            <!--text-->
+                            <div class="w-right-contact-box-text">
+                                <span>Call Us Now</span>
+                                <strong>+60 112570 0460</strong>
+                            </div>
+                        </div>
+                        <!--**box**-->
+                        <div class="w-right-contact-box">
+                            <i class="fa fa-envelope"></i>
+                            <!--text-->
+                            <div class="w-right-contact-box-text">
+                                <span>Email Us</span>
+                                <strong>skingood123@gmail.com</strong>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+    
+            <!--**bottom**********************-->
+            <div class="footer-bottom">
+                <span class="copyright">&#169; Copyright 2024 - Skin Good. All rights reserved.</span>
+            </div>
+        </footer>
+    
+    
+    
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    
+        <!-- Initialize Swiper -->
+        <script>
+        /*-services--*/
+        var swiper = new Swiper(".mySwiperservices", {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+              700: {
+                slidesPerView: 2,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 50,
+              },
+            },
+          });
+        /*--team--*/
+        var swiper = new Swiper(".mySwiperteam", {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            pagination: {
+              el: ".swiper-pagination",
+              clickable: true,
+            },
+            breakpoints: {
+              560: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              950: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+              1250: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+              },
+            },
+          });
+        /*--testimonials--*/
+          var swiper = new Swiper(".mySwipertesti", {
+            pagination: {
+              el: ".swiper-pagination",
+            },
+          });
+        </script>
+    
+    </body>
+    </html>
+       

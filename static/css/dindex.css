@@ -1,0 +1,225 @@
+@charset "utf-8";
+
+body {
+    font-style: normal;
+    margin-left: 200px; /* Add left margin to accommodate the side menu */
+    margin-right: 50px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header2 a:hover{
+    color: grey;
+}
+
+.header2 a{
+    margin-left: 30px;
+    text-decoration: none;
+    color: black;
+}
+
+.header i{
+    margin-right:10px;
+}
+
+.logo{
+    width:150px;
+}
+
+.menu {
+    height: 100%;
+    position: fixed;
+    background-color: #E0F3FA;
+    top: 0;
+    left: 0;
+    width: 150px; /* Set the width of the side menu */
+}
+
+.menu a{
+    display: block;
+    color: grey;
+    text-align: center;
+    font-size: 17px;
+    text-decoration: none;
+    padding: 8px 8px 8px 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.logout{
+    margin-top: 250px;
+}
+
+.menu i{
+    display: block;
+}
+
+.menu a:hover{
+    background-color: rgba(128, 128, 128, 0.5);
+    color: white;
+}
+
+.option{
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    justify-content:space-around;
+}
+
+.option a{
+    display: block;
+    box-sizing:border-box;
+    padding:20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    text-decoration: none;
+    color: black;
+}
+
+.option i{
+    display: block;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.option a:hover{
+    background-color: rgba(128, 128, 128, 0.5);
+    color: white;
+}
+
+.appointments {
+    margin-top: 20px;
+}
+
+.appointments table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.appointments th, .appointments td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.appointments th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.appointments tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.appointments tr:hover {
+    background-color: #f2f2f2;
+}
+
+.appointments td button {
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.appointments td button:hover {
+    background-color: #45a049;
+}
+
+/* Notification Container Styling */
+.notifications {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 15px;
+    width: 300px; /* Adjust the width as needed */
+}
+
+.notifications h2 {
+    font-size: 1.5em;
+    color: #343a40;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 10px;
+}
+
+#messageNotifications {
+    list-style-type: none;
+    padding: 0;
+    max-height: 400px; /* Adjust max height as needed */
+    overflow-y: auto;
+}
+
+#messageNotifications li {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+#messageNotifications li:hover {
+    background-color: #e9ecef;
+}
+
+#messageNotifications li a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#messageNotifications li a:hover {
+    text-decoration: underline;
+}
+
+#messageNotifications li .message-text {
+    flex: 1;
+    color: #495057;
+}
+
+#messageNotifications li .timestamp {
+    color: #868e96;
+    font-size: 0.85em;
+    margin-left: auto;
+}
+
+.calendar {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.calendar iframe {
+    width: 100%;
+    height: 600px;
+    border: 0;
+}
+/* Additional CSS for hover effect */
+.notifications ul li {
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.notifications ul li:hover {
+    background-color: #f0f0f0;
+}

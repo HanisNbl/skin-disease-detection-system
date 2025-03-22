@@ -1,0 +1,118 @@
+@charset "utf-8";
+
+body {
+    font-style: normal;
+    margin-left: 200px; /* Add left margin to accommodate the side menu */
+    margin-right: 50px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header2 a:hover{
+    color: grey;
+}
+
+.header2 a{
+    margin-left: 30px;
+    text-decoration: none;
+    color: black;
+}
+
+.header i{
+    margin-right:10px;
+}
+
+.logo{
+    width:150px;
+}
+
+.menu {
+    height: 100%;
+    position: fixed;
+    background-color: #E0F3FA;
+    top: 0;
+    left: 0;
+    width: 150px; /* Set the width of the side menu */
+}
+
+.menu a{
+    display: block;
+    color: grey;
+    text-align: center;
+    font-size: 17px;
+    text-decoration: none;
+    padding: 8px 8px 8px 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.logout{
+    margin-top: 190px;
+}
+
+.menu i{
+    display: block;
+}
+
+.menu a:hover{
+    background-color: rgba(128, 128, 128, 0.5);
+    color: white;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+}
+
+tr, th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid grey;
+}
+
+th {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
+/* Status color */
+td.status {
+    font-weight: bold;
+}
+
+button {
+    display: inline-block; /* Ensures the link is treated as a block element */
+    padding: 10px 15px;    /* Adjust padding for button size */
+    font-size: 16px;       /* Font size for the button text */
+    text-align: center;    /* Center align text inside the button */
+    color: white;          /* Text color */
+    border: none;          /* No border */
+    border-radius: 5px;    /* Rounded corners */
+    text-decoration: none; /* Remove underline from link */
+    cursor: pointer;       /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color change */
+}
+
+.approve {
+    background-color: #28a745; /* Green background for the "Edit" button */
+}
+
+.approve:hover {
+    background-color: #218838; /* Darker green background on hover for the "Edit" button */
+}
+
+.reject {
+    background-color: #dc3545; /* Red background for the "Delete" button */
+}
+
+.reject:hover {
+    background-color: #c82333; /* Darker red background on hover for the "Delete" button */
+}

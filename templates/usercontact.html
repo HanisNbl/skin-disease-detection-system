@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Telemedicine Contact and Chat</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chat.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="menu">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}"></img>
+        <a href="/userdash"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+        <a href="/uhistory"><i class="bi bi-clock-history"></i>History</a>
+        <a href="/usercontact"><i class="bi bi-chat-dots-fill"></i>Chat with Derm</a>
+        <a href="/userprofile"><i class="bi bi-person-fill"></i>Profile</a>
+        <div class="logout">
+            <a href="/logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>Chat with Derm</h1>
+        <div class="header2">
+            <a href="#"><i class="bi bi-person-circle"></i>{{ session.name }}</a>
+        </div>
+    </div>
+
+    <p style="color: grey">*Your message will be replied to when the dermatologist is online.</p>
+    <div class="container">
+        <div class="sidebar">
+            <div class="contactname">Contact</div>
+            <ul class="contact-list">
+                {% for dermatologist in dermatologists %}
+                    <li>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="dermaid" value="{{ dermatologist.dermaid }}">
+                            <button type="submit" class="contact">{{ dermatologist.name }} 
+                            <div class="circle">
+                            {% if dermatologist.unread_count > 0 %}
+                                <span class="unread-count">{{ dermatologist.unread_count }}</span>
+                            {% endif %}
+                            </div>
+                        </button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>            
+        </div>
+        <div class="chat-container">
+            {% if dermatologist %}
+                <div class="chat-header">
+                    <h2>{{ dermatologist.name }}</h2>
+                </div>
+                <div class="messages" id="messageContainer">
+                    {% for message in messages %}
+                        <div class="message-container {% if message.sender_id == session['userid'] %}sender-container{% else %}recipient-container{% endif %} {% if not message.is_read %}unread{% endif %}">
+                            {% if message.message %}
+                                <p class="message {% if message.sender_id == session['userid'] %}sender{% else %}recipient{% endif %}">
+                                    {{ message.message }}
+                                </p>
+                            {% endif %}
+                            {% if message.image %}
+                                <img src="{{ url_for('static', filename='uploads/' ~ message.image) }}" class="chat-image" alt="Chat Image">
+                            {% endif %}
+                            <span class="timestamp">{{ message.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="imagePreviewContainer" class="image-preview-container" style="display:none;">
+                    <img id="imagePreview" class="image-preview" alt="Image Preview">
+                    <button onclick="removePreview()" class="remove-preview-button">Remove</button>
+                </div>
+                <div class="input-container">
+                    <input type="file" id="imageInput" class="image-input" style="display:none" onchange="previewImage(event)" />
+                    <button onclick="document.getElementById('imageInput').click();" class="upload-button">+</button>
+                    <input placeholder="Type your message..." id="messageInput" class="message-input"/>
+                    <button onclick="sendMessage()" id="sendMessageButton" class="send-button">Send</button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        const messageContainer = document.getElementById("messageContainer");
+        const messageInput = document.getElementById("messageInput");
+        const imageInput = document.getElementById("imageInput");
+        const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+        const imagePreview = document.getElementById("imagePreview");
+
+        const username = "{{ session['userid'] }}";
+        const dermatologistId = "{{ dermatologist.dermaid }}";
+        const room = `user${username}-derm${dermatologistId}`;
+        const sender = username;
+        const receiver = dermatologistId;
+
+        socket.on("connect", () => {
+            socket.emit("join", { username: username, room: room });
+        });
+
+        messageInput.addEventListener("keypress", (e) => {
+            if (e.which === 13) {
+                sendMessage();
+            }
+        });
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreviewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removePreview() {
+            imagePreviewContainer.style.display = 'none';
+            imagePreview.src = '';
+            imageInput.value = '';
+        }
+
+        function sendMessage() {
+            const message = messageInput.value;
+            const imageFile = imageInput.files[0];
+
+            if (message.trim() !== "" || imageFile) {
+                const formData = new FormData();
+                formData.append('room', room);
+                formData.append('message', message);
+                formData.append('sender', sender);
+                formData.append('receiver', receiver);
+                formData.append('timestamp', new Date().toISOString());
+                if (imageFile) {
+                    formData.append('image', imageFile);
+                }
+
+                fetch('/send_message', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        messageInput.value = "";
+                        imageInput.value = "";
+                        removePreview();
+                        socket.emit('private_message', data.message);
+                        scrollToBottom();
+                    }
+                });
+            }
+        }
+
+        function scrollToBottom() {
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        socket.on('private_message', (data) => {
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("message-container");
+            if (data.sender === sender) {
+                messageElement.classList.add("sender-container");
+                messageElement.innerHTML = `<p class="message sender">${data.message}</p>`;
+                if (data.image) {
+                    messageElement.innerHTML += `<img src="/static/uploads/${data.image}" class="chat-image" alt="Chat Image"/>`;
+                }
+                messageElement.innerHTML += `<span class="timestamp">${new Date(data.timestamp).toLocaleString()}</span>`;
+            } else {
+                messageElement.classList.add("recipient-container");
+                messageElement.innerHTML = `<p class="message recipient">${data.message}</p>`;
+                if (data.image) {
+                    messageElement.innerHTML += `<img src="/static/uploads/${data.image}" class="chat-image" alt="Chat Image"/>`;
+                }
+                messageElement.innerHTML += `<span class="timestamp">${new Date(data.timestamp).toLocaleString()}</span>`;
+            }
+            messageContainer.appendChild(messageElement);
+            scrollToBottom();
+        });
+
+        window.addEventListener("beforeunload", () => {
+            socket.emit("leave", { username: username, room: room });
+        });
+
+        // Scroll to the bottom when the page is loaded
+        window.onload = () => {
+            scrollToBottom();
+        };
+    </script>
+</body>
+</html>

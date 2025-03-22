@@ -1,0 +1,48 @@
+<!-- templates/agenerate.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skin Disease Report</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Admin Dashboard Report</h2>
+    <p>Total Users: {{ user_count }}</p>
+    <p>Total Dermatologists: {{ derm_count }}</p>
+    <h3>Skin Disease Predictions</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Types of Skin Disease</th>
+                <th>Total Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for label, count in disease_counts.items() %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ label }}</td>
+                    <td>{{ count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

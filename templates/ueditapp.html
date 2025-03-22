@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/appointment.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function showSuccessMessage() {
+            alert("Successfully updated!");
+            return true;
+        }
+    </script>
+    <title>Appointment booking</title>
+</head>
+<body>
+    <div class="menu">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}"></img>
+        <a href="/userdash"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+        <a href="/uhistory"><i class="bi bi-clock-history"></i>History</a>
+        <a href="/usercontact"><i class="bi bi-chat-dots-fill"></i>Chat with Derm</a>
+        <a href="/userprofile"><i class="bi bi-person-fill"></i>Profile</a>
+        <div class="logout">
+            <a href="/logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>Book an Appointment</h1>
+        <div class="header2">
+            <a href="#" class="bi bi-bell-fill"></a>
+            <span>Welcome, {{ session['name'] }}</span>
+        </div>
+    </div>
+
+    <form id="appointment_id" method="POST" onsubmit="return showSuccessMessage()">
+        <label for="date">Date:</label>
+        <input type="date" name="date" value="{{ appointment.date }}"><br>
+    
+        <label for="time">Time:</label>
+        <input type="time" name="time" value="{{ appointment.time }}"><br>
+    
+        <label for="platform">Platform:</label>
+        <input type="text" name="platform" value="{{ appointment.platform }}"><br>
+    
+        <label for="dermaid">Dermatologist:</label>
+        <select name="dermaid" required>
+            <option value=""></option>
+            {% for dermatologist in dermatologists %}
+                <option value="{{ dermatologist.dermaid }}" {% if dermatologist.dermaid == appointment.dermaid %} selected {% endif %}>{{ dermatologist.name }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="message">Message:</label>
+        <textarea name="message" id="message">{{ appointment.message }}</textarea><br>
+
+        <button type="submit" value="Update Appointment">Update Appointment</button>
+    </form>    
+</body>
+</html>

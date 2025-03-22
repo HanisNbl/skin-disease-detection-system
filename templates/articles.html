@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/skininfo.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Dermatology Skin Information</title>
+    <style>
+        .card-content {
+            max-height: 150px; /* Adjust based on your card content */
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .card.expanded .card-content {
+            max-height: 1000px; /* Large enough to show full content */
+        }
+        .card-actions .close-button {
+            display: none;
+        }
+        .card.expanded .card-actions .close-button {
+            display: inline-block;
+        }
+        .card.expanded .card-actions .read-more-button {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}"></img>
+        <a href="/userdash"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+        <a href="/uhistory"><i class="bi bi-clock-history"></i>History</a>
+        <a href="/usercontact"><i class="bi bi-chat-dots-fill"></i>Chat with Derm</a>
+        <a href="/userprofile"><i class="bi bi-person-fill"></i>Profile</a>
+        <div class="logout">
+            <a href="/logout"><i class="bi bi-box-arrow-right"></i>Logout</a>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>Skin Information</h1>
+        <div class="header2">
+            <a href="#" class="bi bi-bell-fill"></a>
+            <tr>
+                <td><a href="#"><i class="bi bi-person-circle"></i>{{session.name}}</a></td> <!-- Assuming ID is the first column -->
+            </tr>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card-container">
+            {% for info in skin_infos %}
+            <div class="card" id="card-{{ info.id }}">
+                <img src="data:image/jpeg;base64,{{ info.image }}" alt="Skin Image">
+                <div class="card-content">
+                    <h2>{{ info.title }}</h2>
+                    <p>{{ info.description }}</p>
+                </div>
+                <div class="card-actions">
+                    <a href="javascript:void(0);" class="read-more-button" onclick="toggleCard('{{ info.id }}')">Read more...</a>
+                    <a href="javascript:void(0);" class="close-button" onclick="toggleCard('{{ info.id }}')">Close</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function toggleCard(id) {
+            var card = document.getElementById('card-' + id);
+            card.classList.toggle('expanded');
+        }
+    </script>
+</body>
+</html>

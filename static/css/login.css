@@ -1,0 +1,81 @@
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Ensure the body takes the full height */
+    overflow: hidden; /* Prevent scrollbars if necessary */
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/drbg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5; /* Adjust the opacity to make the image look faded */
+    z-index: -1; /* Place the pseudo-element behind the content */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login {
+    width: 300px; /* Adjust the width of the form as needed */
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.Email,
+.Password {
+    margin-bottom: 20px;
+}
+
+.Email label,
+.Password label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.Email input,
+.Password input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #3097F7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: lightblue;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #f44336; /* Red */
+    text-align: center;
+}

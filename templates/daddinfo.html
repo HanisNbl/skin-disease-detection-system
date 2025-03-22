@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/skininfo.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Add Skin Info</title>
+</head>
+<body>
+    <div class="menu">
+        <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}"></img>
+        <a href="/ddash"><i class="bi bi-house-door-fill"></i>Dashboard</a>
+        <a href="/dermcontact"><i class="bi bi-phone-fill"></i>Chat with User</a>
+        <a href="/dprofile"><i class="bi bi-person-fill"></i>Profile</a>
+        <a href="/logout" style="margin-top: 270px;"><i class="bi bi-box-arrow-right"></i>Logout</a>
+    </div>
+
+    <div class="header">
+        <h1>Add Skin Information</h1>
+        <div class="header2">
+            <tr>
+                <td><a href="#"><i class="bi bi-person-circle"></i>{{session.name}}</a></td> <!-- Assuming ID is the first column -->
+            </tr>
+        </div>
+    </div>
+
+    <form class="addinfo" method="POST" enctype="multipart/form-data" onsubmit="return handleSubmit();">
+        <div class="form">
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" required><br>
+        </div>
+        <div class="form">
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description"></textarea><br>
+        </div>
+        <div class="form">
+            <label for="image">Image:</label><br>
+            <input type="file" id="image" name="image" accept="image/*"><br>
+        </div>
+        <button type="submit">Add Skin Information</button>
+    </form>
+
+    <script>
+        function handleSubmit() {
+            // Example: Handle form submission success
+            // Replace this with actual form submission handling logic
+            // For demonstration purposes, alert is shown
+            alert('Successfully added skin information!');
+            return true; // Returning true allows form submission to proceed
+        }
+    </script>
+</body>
+</html>
